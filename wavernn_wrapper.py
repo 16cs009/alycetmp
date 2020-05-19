@@ -7,11 +7,11 @@ def initializeWaveRNN(path):
 	
 	use_cuda = True
 	batched_wavernn = True
-	path_to_WaveRNN = path+"/WaveRNN"
-	wavernn_pretrained_model = path + '/wavernn_models/checkpoint_433000.pth.tar'
-	wavernn_pretrained_model_config = path + '/wavernn_models/config.json'
-	tts_pretrained_model = path + '/tts_models/checkpoint_261000.pth.tar'
-	tts_pretrained_model_config = path + '/tts_models/config.json'
+	path_to_WaveRNN = path
+	wavernn_pretrained_model = 'wavernn_models/checkpoint_433000.pth.tar'
+	wavernn_pretrained_model_config = 'wavernn_models/config.json'
+	tts_pretrained_model = 'tts_models/checkpoint_261000.pth.tar'
+	tts_pretrained_model_config = 'tts_models/config.json'
 	CONFIG = load_config(tts_pretrained_model_config)
 	from TTS.utils.text.symbols import symbols, phonemes
 	num_chars = len(phonemes) if CONFIG.use_phonemes else len(symbols)
