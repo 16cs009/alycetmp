@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+
+	<title>Alyce</title>
+	<style>
+		.textareaclass{
+			width: 100%;
+			border: none;
+			text-align: justify;
+		}
+	</style>
+  </head>
+  <body>
+    <div class="container-fluid">
+		<div class="row">
+			<div class="col-12 text-center bg-dark">
+				<h3 class="text-light">Alyce : An AI fine tuned Screenplay Writer</h3>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-sm-12 col-md-6 col-lg-6" style="border-right: 1px solid grey;">
+				&nbsp;
+				<h6>Enter your story :</h6><br/>
+				<textarea id="story" class="textareaclass" rows="5" max-rows="50" style="height: 30vh;" placeholder="Type Your story here"></textarea><br/>&nbsp;</br>
+				<div class="container">
+					<div class="row">
+						<div class="col-12 col-sm-12 col-md-12 col-lg-6">
+							&nbsp;<br>
+							<input type="button" id="fetchStory" value="Fetch a Sample Story">
+							<br>&nbsp;
+						</div>
+						<div class="col-12 col-sm-12 col-md-12 col-lg-6">
+							&nbsp;<br>
+							<input type="button" id="submitStory"value="Submit Story&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+							<br>&nbsp;
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-sm-12 col-md-6 col-lg-6">
+				&nbsp;
+				<h6>Output : </h6><br/>
+				<div class="container">
+					<div id="output" style="text-align: justify;"></div><br/>&nbsp;</br>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+    <script src="javascripts/jquery-3.4.1.slim.min.js"></script>
+    <script src="javascripts/popper.min.js"></script>
+	<script src="javascripts/bootstrap.min.js"></script>
+	<script src="javascripts/textarea-max-rows.js"></script>
+	<script>
+		document.getElementById("submitStory").onclick = function(){
+			var story = document.getElementById("story").value;
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					document.getElementById("output").innerHTML = this.responseText;
+				}
+				else if(this.readyState == 4 && this.status >= 400){
+					document.getElementById("output").innerHTML = "Some Error Occured!......";
+				}
+			};
+			xhttp.open("POST", "/", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("story="+story);
+		}
+		document.getElementById("fetchStory").onclick = function(){
+			var story = document.getElementById("story");
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					story.value = this.responseText;
+				}
+				else if(this.readyState == 4 && this.status >= 400){
+					window.alert("Some Error Occured while Fetching Story!......");
+				}
+			};
+			xhttp.open("GET", "story/story01.txt", true);
+			xhttp.send();
+		}
+	</script>
+  </body>
+</html>
+
+
+
